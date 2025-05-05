@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row g-4">
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-header bg-white"><h5>Dept Employee Counts</h5></div>
+      <div class="card-body p-0">
+        <table class="table table-striped mb-0">
+          <thead class="table-light"><tr><th>Dept ID</th><th>Name</th><th class="text-end">Employees</th></tr></thead>
+          <tbody>
+            {% for d in depts %}
+            <tr>
+              <td>{{ d.department_id }}</td>
+              <td>{{ d.name }}</td>
+              <td class="text-end">{{ d.emp_count }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-header bg-white"><h5>Branch Stock Value</h5></div>
+      <div class="card-body p-0">
+        <table class="table table-striped mb-0">
+          <thead class="table-light"><tr><th>Branch ID</th><th class="text-end">Value</th></tr></thead>
+          <tbody>
+            {% for s in stocks %}
+            <tr>
+              <td>{{ s.branch_id }}</td>
+              <td class="text-end">${{ '%.2f'|format(s.stock_value) }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

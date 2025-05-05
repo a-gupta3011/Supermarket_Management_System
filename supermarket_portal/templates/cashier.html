@@ -1,0 +1,49 @@
+<!doctype html><body>
+    <h1>Cashier</h1>
+    {% for m in get_flashed_messages() %}<p style="color:green">{{ m }}</p>{% endfor %}
+    
+    <h2>Create New Bill</h2>
+    <form method="post">
+        Customer:
+        <select name="customer_id">
+            {% for c in customers %}
+                 <option value="{{ c.customer_id }}">{{ c.name }}</option>
+            {% endfor %}
+        </select><br>
+
+        Payment:
+        <select name="payment_method">
+            <option>Cash</option>
+            <option>Card</option>
+            <option>Online</option>
+        </select><br>
+
+        <button name="create">Create Bill</button>
+    </form>
+
+    
+    <h2>Existing Bills</h2>
+    <table border="1">
+      <tr><th>Bill ID</th><th>Cust ID</th><th>Total</th><th>Add Item</th></tr>
+      {% for b in bills %}
+      <tr>
+        <td>{{ b.billing_id }}</td>
+        <td>{{ b.customer_id }}</td>
+        <td>{{ b.total_amount }}</td>
+        <td>
+          <form method="post">
+            <input type="hidden" name="billing_id" value="{{b.billing_id}}">
+            <select name="product_id">
+              {% for p in products %}
+                <option value="{{p.product_id}}">{{p.name}} (${{p.price}})</option>
+              {% endfor %}
+            </select>
+            Qty: <input name="quantity" size="2">
+            <button name="addprod">Add</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    </body>
+        
